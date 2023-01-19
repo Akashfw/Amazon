@@ -50,7 +50,7 @@ color: white;
 .map{
     margin-top: 17px;
     padding-left: 5px;
-    font-size: 17px;
+    font-size: 13px;
     margin-bottom: 15px;
 }
 .map div{
@@ -61,7 +61,7 @@ color: white;
 }
 .map div span:first-child{
     font-weight: 400;
-    font-size: 15px;
+    font-size: 13px;
 }
 .map div span{
     font-weight: bold;
@@ -87,14 +87,14 @@ color: white;
 .input input{
     outline: none;
     width: 80%;
-    font-size: 20px;
+    font-size: 13px;
     padding: 10px 2px;
     border: none;
 }
 .input .fa-search{
     color: rgb(51,51,51);
     padding: 10px 15px;
-    font-size: 20px;
+    font-size: 13px;
     cursor: pointer;
     background-color: #febd69;
     border-radius: 0 5px 5px 0;
@@ -111,7 +111,7 @@ color: white;
     border-radius: 5px 0 0 5px;
     color: rgb(51,51,51);
     padding: 6px 5px;
-    font-size: 15px;
+    font-size: 13px;
     cursor: pointer;
 }
 .input .fa-caret-down{
@@ -157,7 +157,7 @@ color: gray;
 }
 .sign span:first-child{
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
 }
 .sign span{
     display: inline-block;
@@ -165,7 +165,7 @@ color: gray;
     font-weight: bold;
 }
 .flex .ac span{
-    font-size: 20px;
+    font-size: 13px;
     margin-right: 5px;
     font-weight: bold;
 }
@@ -173,7 +173,7 @@ color: gray;
     font-size: 30px;
 }
 .ca{
-    font-size: 20px;
+    font-size: 13px;
     font-weight: bold;
 }
 .cart{
@@ -241,17 +241,17 @@ input div:hover{
     justify-content: flex-start;
 }
 .second span{
-    font-size: 20px;
+    font-size: 13px;
 }
 .second-1 div i{
-    font-size: 20px;
+    font-size: 13px;
     cursor: pointer;
     border:  1px solid transparent;
     border-radius: 3px;
 }
 .second li{
     padding: 5px 10px;
-    font-size: 20px;
+    font-size: 13px;
     margin: 7px 0;
     cursor: pointer;
     border:  1px solid transparent;
@@ -310,10 +310,10 @@ input div:hover{
     box-sizing:border-box;
 }
 .slide img{
-    width: 1560px;
+    width: 1360px;
     height: 100%;
 }
-container{
+.container{
     position: relative;
     width: 100%;
     height: auto;
@@ -365,12 +365,11 @@ container{
     width: 100%;
     padding: 20px;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: column;
     align-items: center;
     background: linear-gradient(to bottom,transparent,#eaeded 30%);
     margin-top: 20px;
-    margin-bottom: 0px;
-    margin-left: 30px;
+    
 }
 .product-comp{
     width: 100%;
@@ -381,14 +380,14 @@ container{
     justify-content:  space-around;
 }
 .product-comp .box{
-    width: 375px;
-    height: 450px;
+    width: 315px;
+    height: 400px;
     background-color: white;
 }
 .box h2{
     margin-top: 20px;
     margin-left: 20px;
-    font-size: 20px;
+    /* font-size: 13px; */
     margin-bottom: 10px;
     color: rgb(43,42,42);
 
@@ -397,19 +396,25 @@ container{
     font-size: 13px;
     margin-left: 20px;
     display: block;
-    padding-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color:lightseagreen;    
 
 }
 .box-a{
     overflow: hidden;
     background-color: white;
     margin-left: 7px;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: auto;
+    gap: 5px;
 }
 .box div img{
-    width: 167px;
-    height: 120px;
+    width: 120px;
+    height: 100px;
     cursor: pointer;
-   margin: 5px 5px;
+   margin: 5px 10px;
 }
 .box-a div{
     display: inline-block;
@@ -417,7 +422,288 @@ container{
 .box-a div span{
     display: block;
     font-size: 13px;
-    margin-left: 20px;
+   margin-left: 5px;
 }
 
 
+.sec-2{
+    width: 100%;
+    height: 315px;
+    padding: 25px;
+    padding-top: 0px;
+    padding-bottom: 25px;
+}
+.slide-sec h3{
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+.slide-sec{
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 10px 20px;
+    overflow-x: hidden;
+    background-color: white; 
+    position: relative;
+}
+.product-slide{
+    display: flex;
+    margin-top: 5px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+}
+.product-slide::-webkit-scrollbar{
+    background-color: transparent;
+    height: 7px;
+    cursor: pointer;
+}
+.product-slide::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    cursor: pointer;
+}
+.product-slide li{
+list-style: none;
+margin-right: 10px;
+margin-bottom: 15px;
+cursor: pointer;
+}
+.l-btn,.r-btn{
+    background-color: rgb(255,255,255,1);
+    height: 90px;
+    width: 50px;
+    text-align: center;
+    cursor: pointer;
+    top: 35%;
+    position: absolute;
+    border: 3px solid transparent;
+
+}
+.l-btn{
+    border-radius: 0 5px 5px 0;
+    left: 20px;
+}
+.r-btn{
+    border-radius: 0 5px 5px 0;
+    right: 20px; 
+}
+.l-btn:hover{
+    border: 3px solid rgb(2, 150, 150);
+}
+.r-btn:hover{
+    border: 3px solid rgb(2, 150, 150);
+}
+.r-btn i, .l-btn i{
+    color: rgb(54,54,54);
+    position: absolute;
+    font-size: 30px;
+    top: 35%;
+    left: 13%;
+    right: 13%;
+}
+.sec-3{
+    margin: 0px 16px;
+}
+.outer{
+    height: 350px;
+    width: 1300px;
+    background-color: white;
+    margin-left: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+.outer img{
+    height: 310px;
+}
+.footer{
+    width: 100%;
+    height: 490px;
+    transition: all 0.2s;
+}
+.backtop{
+    text-align: center;
+    height: 50px;
+    background-color: #37475a;
+    padding: 16px;
+    cursor: pointer;
+}
+.backtop span{
+    color: white;
+    font-weight: bold;
+
+}
+.backtop:hover{
+    background-color: #4d627c;
+}
+.detail{
+    background-color: #232f3e;
+    height: 350px;
+}
+.table{
+    margin: 0 150px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 50px;
+    
+}
+.table div{
+    width: 230px;
+}
+.t-head{
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.table li{
+    color: rgb(223,221,221);
+    padding-top: 10px;
+    font-weight: lighter;
+    font-size: 14px;
+    list-style: none;
+}
+.copy{
+    background-color: #232f3e;
+    height: 40px;
+    padding: 40px;
+    text-align: center;
+}
+.copy span{
+    color: white;
+    font-size: 16px;
+}
+.line{
+    height: 0.5px;
+    width: 100%;
+    background-color: rgb(172,172,172);
+}
+.sidebar{
+    background-color: white;
+    width: 300px;
+    height: 100%;
+    transform: translateX(-390px);
+    transition: all 0.5s;
+    position: absolute;
+    z-index: 101;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 30px black;
+}
+.hdn-head{
+    background-color: #232f3e;
+    height: 60px;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+.hdn-head h2{
+    line-height: 60px;
+}
+.hdn-content h3{
+padding: 20px 25px;
+color: rgb(39,39,39)
+}
+.hdn-content ul div{
+    display: flex;
+    cursor: pointer;
+    transition: all 0.2s;
+    color: rgb(70,70,70);
+    padding: 15px;
+    justify-content: space-between;
+
+}
+.fa-xmark{
+    top: 20px;
+    left: 320px;
+    position: absolute;
+    font-size: 20px;
+    z-index: 101;
+    display: none;
+}
+.fa-angle-right{
+    color: rgb(39,39,39);
+}
+.hdn-content ul div:hover{
+    background-color: rgb(230,227,227);
+}
+.hdn-content ul{
+    padding: 9px;
+}
+.black{
+    position: absolute;
+    width: 0;
+    height: 100%;
+   
+    background-color: rgba(0,0,0,0.7);
+}
+.black.active{
+    width: 100%;
+    z-index: 100;
+}
+.black.active-1{
+    top: 70px;
+    width: 100%;
+    z-index: 99;
+}
+.sidebar.active{
+    transform: translateX(0);
+}
+.fa-xmark.active{
+    display: block;
+}
+.hdn-sign.active{
+    display: block;
+}
+.triangle.acttive{
+    display: block;
+}
+.triangle{
+    position: absolute;
+    z-index: 101;
+    right: 188px;
+    top: 42px;
+    background-color: transparent;
+    width: 0px;
+    height: 0px;
+    display: none; 
+    transition: all 2s;
+    border: 12px solid blue;
+    border-color: transparent transparent white transparent;
+}
+.hdn-sign{
+    position: absolute;
+    z-index: 101;
+    transition: all 2s;
+    width: 500px;
+    height: 350px;
+    display: none;
+    top: 65px;
+    right: 80px;
+    background-color: white;
+    border-radius: 5px;
+}
+.hdn-table{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+
+}
+.hdn-table li{
+    color: rgb(84,84,84);
+    font-size: 13px;
+    padding: 5px 0;
+    cursor: pointer;
+}
+.hdn-line{
+    width: 0.5px;
+    color: black;
+    background-color: rgb(190,190,190);
+    height: 300px;
+}
+.stop-scroll{
+    overflow: hidden;
+    height: 100%;
+}
+.hdn-table li:hover{
+    color: brown;
+}

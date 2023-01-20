@@ -1,3 +1,19 @@
+let user_data=JSON.parse(localStorage.getItem("user"));
+
+if(user_data){
+    document.querySelector("#signin_name").innerHTML=`Hello, ${user_data.name}`;
+    
+}
+console.log(user_data.name);
+
+
+
+
+
+
+
+
+
 document.querySelector(".r-btn").addEventListener("click",(event)=>{
 document.querySelector(".product-slide").scrollLeft +=1100;
 event.preventDefault();

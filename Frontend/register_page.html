@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body{
+            text-align: left;
+            
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            
+        }
+        #main{
+            width: 25%;
+            height: auto;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            padding-left: 25px;
+            padding-right: 0px;
+            padding-bottom: 20px;
+            justify-content: space-evenly;
+            /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+            border-radius: 5px;
+            background-color: white;
+            margin-top: 20px;
+            border: 0.5px solid silver;
+        }
+        input{
+            height: 30px;
+            border-radius: 3px;
+            border: 1px solid silver;
+            margin-top: 5px;
+            /* color:silver; */
+            margin-bottom: 15px;
+            width: 85%;
+            padding: 0px 10px;
+            font-size: 15px;
+            font-weight: 500;
+            
+        }
+        
+        h1{
+            /* margin: 0px; */
+            font-weight: 300;
+            font-style: normal;
+        }
+        p{
+            margin: 10px;
+            font-size: 13px;
+    
+        }
+        a{
+            color: red;
+        }
+        span{
+            font-weight: bold;
+            font-style: normal;
+            font-size: 15px;
+            /* margin-top: 5px; */
+        }
+        
+        #sub{
+            width: 92%;
+            background-color: #febd69;
+            color: black;
+            margin-top: 10px;
+        }
+        #logo{
+            height: 35px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #logo img{
+            height: 100%;
+        }
+        h4{
+            margin: 5px 10px;
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .blue{
+            color: blue;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1200px-Amazon_logo.svg.png" alt="">
+    </div>
+    <div id="main"> 
+        <h1>Create Account</h1>
+        <form action="" autocomplete="on">
+            <span>Your name</span><br>
+            <input type="text" placeholder="frist name & last name" id="name" required><br>
+            <span>Your email</span><br>
+            <input type="text" placeholder="email" id="email" required><br>
+            <span>Password</span><br>
+            <input type="password" placeholder="password" id="pass" required><br>
+             <span>Mobile number</span><br>
+            <input type="number" maxlength="10" placeholder="enter your phone number" id="mobileNo" required><br>
+            <p>By enrolling your mobile phone number, you consent to receive automated security notifications via text message from Amazon. Message and data rates may apply</p>
+            <input type="submit" value="Sign Up" id="sub">
+        </form>
+
+            <h4>Already have an account?<a href="log-in.html">Log In</a></h4>
+            <p>By creating an account or logging in, you agree to Amazon’s <a class="blue">Conditions of Use</a> and <a class="blue">Privacy Policy</a>.</p>
+        
+    </div>
+
+    
+    
+</body>
+<script>
+    document.querySelector("#main form").addEventListener("submit",registerfun);
+async function registerfun(event){
+    try {
+        event.preventDefault();
+        let all_input_tags =document.querySelectorAll("#main input");
+        let userobj = {
+            ["name"] : all_input_tags[0].value,
+            ["email"] : all_input_tags[1].value,
+            ["pass"] : all_input_tags[2].value,
+            ["mobile"] : all_input_tags[3].value
+        };
+        
+        let register_req = await fetch("http://localhost:8080/users/register",{
+            method:"POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify(userobj)
+        });
+       
+        if(register_req.ok){
+            
+            let data=await register_req.json()
+            alert(data.msg);
+           
+            window.location.assign("log-in.html");
+        }else{
+            alert("bad request")
+        }
+        // console.log(userobj);
+    } catch (error) {
+        alert("err")
+    }
+}
+</script>

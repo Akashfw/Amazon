@@ -8,16 +8,16 @@ require("dotenv").config();
 
 
 userroute.post("/register",async (req,res)=>{
-    const {name,email,pass,age}=req.body
+    const {name,email,pass,mobile}=req.body
     try{
      const user=await Usermodel.find({email})
      if(user.length>0){
-        res.send({"msg":"user already present please login"})
+        res.send({"msg":"user already registered"})
      }else{
         bcrypt.hash(pass, 8, async (err, hash)=>{
-            const user=new Usermodel({name,email,pass:hash,age})
+            const user=new Usermodel({name,email,pass:hash,mobile})
             await user.save()
-            res.send("Registered")
+            res.send({"msg":"user has been registered"})
             });
      }
     }catch(err){

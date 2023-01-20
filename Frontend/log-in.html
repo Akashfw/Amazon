@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <style>
+        body{
+            text-align: left;
+            
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            
+        }
+        #main{
+            width: 25%;
+            height: auto;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            padding-left: 25px;
+            padding-right: 0px;
+            padding-bottom: 20px;
+            justify-content: space-evenly;
+            /* box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px; */
+            border-radius: 5px;
+            background-color: white;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border: 0.5px solid silver;
+        }
+        input{
+            height: 30px;
+            border-radius: 3px;
+            border: 1px solid silver;
+            margin-top: 5px;
+            /* color:silver; */
+            margin-bottom: 15px;
+            width: 85%;
+            padding: 0px 10px;
+            font-size: 15px;
+            font-weight: 500;
+            
+        }
+        
+        h1{
+            /* margin: 0px; */
+            font-weight: 300;
+            font-style: normal;
+        }
+        p{
+            margin: 0;
+            font-size: 13px;
+    
+        }
+        a{
+            color: red;
+        }
+        span{
+            font-weight: bold;
+            font-style: normal;
+            font-size: 15px;
+            /* margin-top: 5px; */
+        }
+        
+        #sub{
+            width: 92%;
+            background-color: #febd69;
+            color: black;
+            margin-top: 10px;
+        }
+        #logo{
+            height: 35px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #logo img{
+            height: 100%;
+        }
+        h4{
+            margin: 5px 10px;
+            font-size: 15px;
+            font-weight: 300;
+        }
+       #button{
+        width: 100%;
+        height: 45px;
+        text-align: center;
+        color: rgb(87, 82, 82);
+       }
+       button{
+        width: 25%;
+        padding: 5px;
+        font-weight: 400;
+        background-color: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        margin-top: 10px;
+       }
+       .blue{
+        color: blue;
+       }
+    </style>
+</head>
+<body>
+    <div id="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1200px-Amazon_logo.svg.png" alt="">
+    </div>
+    <div id="main"> 
+        <h1>Log in</h1>
+        <form action="" autocomplete="on">
+            <span>Your email</span><br>
+            <input type="text" placeholder="email" id="email" required><br>
+            <span>Password</span><br>
+            <input type="password" placeholder="password" id="pass" required>
+            <input type="submit" value="Sign Up" id="sub">
+        </form>
+            <p>By creating an account or logging in, you agree to Amazon’s <a class="blue">Conditions of Use</a> and <a class="blue">Privacy Policy</a>.</p>
+    </div>
+
+    <div id="button">
+        <p>New to Amazon ?</p>
+        <button>Create your Amazon account</button>
+    </div>
+    
+</body>
+
+<script>
+    document.querySelector("#main form").addEventListener("submit",loginfun);
+async function loginfun(event){
+    try {
+        event.preventDefault();
+        let all_login = document.querySelectorAll("#main input");
+        let object= {
+            ["email"]: all_login[0].value,
+            ["pass"] : all_login[1].value
+        }
+        console.log(object);
+        let login_req = await fetch("http://localhost:8080/users/login",{
+            method : "POST",
+            body : JSON.stringify(object),
+            headers : {
+                "Content-Type" : "application/json"
+            }
+        });
+        let data= await login_req.json();
+        if(login_req.ok){
+            
+            console.log(data);
+            localStorage.setItem("token",data.token);
+            localStorage.setItem("user",JSON.stringify(data.user))
+            alert(data.msg);
+            // window.location.assign("index.html");
+        }else{
+            alert("user not found.")
+        }
+    } catch (error) {
+        alert("err in login")
+    }
+}
+</script>

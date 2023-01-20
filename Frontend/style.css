@@ -707,3 +707,20 @@ color: rgb(39,39,39)
 .hdn-table li:hover{
     color: brown;
 }
+
+.signin-btn{
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signin-btn button{
+  width: 30%;
+  background-color: #febd69;
+  border: 1px solid white;
+  border-radius: 5px;
+  
+  padding: 5px 5px;
+  margin-top: 5px;
+}

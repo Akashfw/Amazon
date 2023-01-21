@@ -152,7 +152,7 @@ async function loginfun(event){
             localStorage.setItem("token",data.token);
             localStorage.setItem("user",JSON.stringify(data.user))
             alert(data.msg);
-            // window.location.assign("index.html");
+             window.location.assign("index.html");
         }else{
             alert("user not found.")
         }
@@ -160,4 +160,8 @@ async function loginfun(event){
         alert("err in login")
     }
 }
+
+document.querySelector("#button button").addEventListener("click",(event)=>{
+    window.location.assign("register_page.html");
+})
 </script>

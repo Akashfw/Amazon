@@ -2,9 +2,30 @@ let user_data=JSON.parse(localStorage.getItem("user"));
 
 if(user_data){
     document.querySelector("#signin_name").innerHTML=`Hello, ${user_data.name}`;
-    
+    document.querySelector(".sign_out").innerHTML="Sign out";
+    document.querySelector("#sidebar_name").innerHTML=`Hello, ${user_data.name}`;
+    document.querySelector("#sidebar-signout li").innerHTML="Sign out"
+    console.log(user_data.name);
 }
-console.log(user_data.name);
+
+document.querySelector(".sign_out").addEventListener("click",(event)=>{
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.assign("index.html");
+    event.preventDefault();
+});
+
+document.querySelector("#sidebar-signout").addEventListener("click",(event)=>{
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.assign("index.html");
+    event.preventDefault();
+});
+
+document.querySelector(".log-in").addEventListener("click",(event)=>{
+    window.location.assign("log-in.html");
+})
+
 
 
 

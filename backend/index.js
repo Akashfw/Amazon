@@ -4,6 +4,8 @@ const app=express();
 app.use(express.json());
 const {connection}=require("./config/db");
 const {userroute} = require("./routes/user_route");
+const {productroute}= require("./routes/product_route");
+const {cartroute}= require("./routes/cart_route");
 const {authenticate}= require("./middelware/authenticate_middleware")
 const cors= require("cors");
 
@@ -13,9 +15,9 @@ app.get("/", async (req,res)=>{
 });
 app.use(cors());
 app.use("/users",userroute);
-
+app.use("/products",productroute);
+app.use("/cart",cartroute);
 app.use(authenticate);
-
 
 app.listen(process.env.port, async ()=>{
     try {

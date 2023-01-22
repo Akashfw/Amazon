@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products</title>
+    <style>
+        *{
+           margin: 0%;
+           padding: 0;
+           text-decoration: none;
+           box-sizing: border-box;
+           list-style: none;
+}
+        body{
+            background-color: #eaeded;
+        }
+        #container{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-template-rows: auto;
+            gap: 15px;
+            text-align: center;
+            margin: 10px 20px;
+        }
+        #container div{
+            background-color: white;
+            padding: 10px;
+        }
+        p{
+            margin: 5px;
+            font-weight: 400;
+            font-style: normal;
+        }
+        #all_function{
+            display: flex;
+            justify-content: end;
+
+        }
+        select{
+            margin: 0.5px 10px;
+            height: 25px;
+            background-color: #232f3e;
+            color: white;
+            font-weight: bold;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            padding: 0 5px;
+        }
+        .head{
+            margin-left: 20px;
+            margin-bottom: 0px;
+        }
+        .main{
+            color: hsl(34, 87%, 59%);
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="first">
+            <div class="flex logo">
+                <a href="index.html"><img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="img"style="margin-top: 15px;"></a>
+                <div class="map flex">
+                    <i class="fas fa-map-marker"></i>
+                    <div>
+                        <span>Deliver To</span>
+                        <span>India</span>
+                    </div>
+                </div>
+            </div>         
+            
+            <div class="flex input">
+                <div>
+                    <span>All</span>
+                    <i class="fas fa-caret-down"></i>
+                </div>
+                <input type="text" id="valu" oninput="search()">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="flex right">
+                <div class="flex lang">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/1200px-Flag_of_India.svg.png" alt="">
+                    <i class="fas fa-caret-down"></i>           
+                </div>
+                <div class="sign">
+                    <span id="signin_name">Hello, Sign in</span>
+                    <div class="flex ac">
+                        <span>Account & Lists</span>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="sign">
+                    <span>Returns</span>
+                    <span>& Orders</span>
+                </div>
+                <div class="flex cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="ca">Cart</span>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
+        <div class="second">
+            <div class="second-1">
+                <div>
+                    <i class="fas fa-bars"></i>
+                    <span>All</span>
+                </div>
+            </div>
+            <div class="second-2">
+                <ul>
+                    <li>Amazon miniTV</li>
+                    <li>Best Sellers</li>
+                    <li>Mobile</li>
+                    <li>Today's Deal</li>
+                    <li>Customer Service</li>
+                    <li>Electronics</li>
+                    <li>Prime</li>
+                    <li>Fashion</li>
+                    <li>Amazon Pay</li>
+                </ul>
+            </div>
+            <div class="second-3">
+                <span>Great Republic Day Sale | Live Now ></span>
+            </div>
+        </div>
+     </header>
+     <div id="all_function">
+        <select name="Sort-Product" id="sort">
+            <option value="Price LTH">Price LTH</option>
+            <option value="Price HTL">Price HTL</option>
+            <option value="Highest Rating">Highest Rating</option>
+          </select>
+          <select name="Filter Product" id="filt">
+            <option value="Manyavar">Manyavar</option>
+            <option value="Puma">Puma</option>
+            <option value="Adidas">Adidas</option>
+          </select>
+     </div>
+     <h1 class="head">Products</h1>
+     <p style="color: rgb(116, 107, 107);margin-left: 20px;margin-bottom: 20px;">Price and other details may vary based on product size and colour.</p>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    const url= "http://localhost:8080/products/mens"     
+         let bag=[];
+async function getdata(){
+    try {
+        let res= await fetch(url);
+        let out=await res.json();
+        bag=out;
+        display(out);
+    } catch (error) {
+        alert("error")
+    }
+};
+getdata();
+function display(out){
+    document.querySelector("#container").innerHTML="";
+    out.forEach((elem) => {
+        let di= document.createElement("div");
+        let im=document.createElement("img");
+        im.setAttribute("src",elem.img);
+        let br= document.createElement("h4");
+        br.innerHTML=elem.brand;
+        let dis= document.createElement("p");
+        dis.innerHTML=elem.discription;
+        let ra= document.createElement("p");
+        ra.innerHTML=`Rating : ${elem.rating}`;
+        let pri= document.createElement("h2");
+        pri.innerHTML=`&#8377; ${elem.price}/-`;
+        let discount= document.createElement("p");
+        discount.innerHTML=elem.discount;
+        discount.style.color="brown";
+        let btn=document.createElement("i");
+        btn.className="fas fa-shopping-cart main";
+        btn.addEventListener("click", async (event)=>{
+            try {
+                event.preventDefault();
+                
+                let token=localStorage.getItem("token"); 
+                console.log(token);
+                let cart_req = await fetch("http://localhost:8080/cart/add",{
+            method:"POST",
+            headers : {
+                "Content-Type" : "application/json",
+                "authorization":token
+            },
+            body : JSON.stringify(elem)
+        });  
+        if(cart_req.ok){
+            
+            let data=await cart_req.json()
+            alert(data.msg);
+        }else{
+            alert("bad request")
+        }
+            } catch (err) {
+                console.log(err);
+            }
+        });
+        let car=document.createElement("h3");
+        car.innerHTML="Cart"
+        car.style.color="hsl(34, 87%, 59%)"
+        di.append(im,br,dis,ra,pri,discount,btn,car);
+        document.querySelector("#container").append(di);
+    });
+}
+
+
+document.querySelector("#sort").addEventListener("change",sortfun);
+    function sortfun(event){
+        event.preventDefault();
+    let val=document.querySelector("#sort").value;
+    console.log(val)
+    if(val=="Highest Rating"){
+        bag.sort(function(a,b){
+            return b.rating - a.rating
+        });
+}else if(val=="Price HTL"){
+    bag.sort(function(a,b){
+            return b.price - a.price
+        });
+}else if(val=="Price LTH"){
+    bag.sort(function(a,b){
+        return a.price - b.price
+    });
+} else {
+    window.location.reload();
+}
+display(bag);
+}
+
+document.querySelector("#filt").addEventListener("change",filterfun);  
+function filterfun(){
+    let val2=document.querySelector("#filt").value;
+    let filterdata= bag.filter(function(element){
+        return element.brand == val2;
+    });
+    display(filterdata);
+};
+
+function search(){
+    let val3=document.querySelector("#valu").value;
+    let newdata=bag.filter(function(ele){
+        return ele.discription.toLowerCase().includes(val3.toLowerCase());
+    });
+    display(newdata);
+}
+</script>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>products</title>
+    <title>Cart</title>
     <style>
         *{
            margin: 0%;
@@ -56,6 +56,38 @@
             color: hsl(34, 87%, 59%);
             margin-top: 10px;
             margin-bottom: 0px;
+        }
+        button{
+            border: 1px solid transparent;
+            color: white;
+            padding: 3px;
+            border-radius: 3px;
+            margin-top: 25px;
+        }
+        .main-1{
+            width: 100%;
+            display: flex;
+        }
+        .main-2{
+            width: 70%;
+        }
+        .main-3{
+            width: 30%;
+            background-color: white;
+            height: 300px;
+            margin: 20px;
+            padding: 10px;
+             
+        }
+        #pay{
+            width: 80%;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 3px;
+            background-color: hsl(34, 87%, 59%);
+             color: white;
+             margin-top: 75px;
+             margin-left: 25px;
         }
 
     @media all and (min-width:300px) and (max-width:900px){
@@ -109,7 +141,7 @@
                 </div>
                 <div class="flex cart">
                     <i class="fas fa-shopping-cart"></i>
-                    <span class="ca"><a href="cart.html">Cart</a></span>
+                    <span class="ca">Cart</span>
                     <p>0</p>
                 </div>
             </div>
@@ -139,21 +171,20 @@
             </div>
         </div>
      </header>
-     <div id="all_function">
-        <select name="Sort-Product" id="sort">
-            <option value="Price LTH">Price LTH</option>
-            <option value="Price HTL">Price HTL</option>
-            <option value="Highest Rating">Highest Rating</option>
-          </select>
-          <select name="Filter Product" id="filt">
-            <option value="Manyavar">Manyavar</option>
-            <option value="Puma">Puma</option>
-            <option value="Adidas">Adidas</option>
-          </select>
+
+            <h1 class="head">Cart Items</h1>
+            <p id="not_login" style="margin: 20px; color: brown;"></p>
+     <div class="main-1">
+        <div class="main-2">
+            <div id="container"></div>
+        </div>
+        <div class="main-3">
+            <h3 style="display: block;text-align: center;justify-content: center; margin-right: 50px;margin-top: 10px;color: hsl(34, 87%, 59%);">Total cost of the products</h3>
+            <h2 id="price-show" style="display: block; justify-content: center; text-align: center; margin-top: 10px;"></h2>
+            <button id="pay">Proceed for Payment  ></button>
+        </div>
      </div>
-     <h1 class="head">Products</h1>
-     <p style="color: rgb(116, 107, 107);margin-left: 20px;margin-bottom: 20px;">Price and other details may vary based on product size and colour.</p>
-    <div id="container"></div>
+     
 </body>
 </html>
 <script>
@@ -161,11 +192,8 @@ let user_data=JSON.parse(localStorage.getItem("user"));
 
 if(user_data){
     document.querySelector("#signin_name").innerHTML=`Hello, ${user_data.name}`;
-    console.log(user_data)
-}
-
-
-    const url= "http://localhost:8080/products/mens"     
+    console.log(user_data);
+    const url= "http://localhost:8080/cart/item"     
          let bag=[];
 async function getdata(){
     try {
@@ -180,6 +208,7 @@ async function getdata(){
 getdata();
 function display(out){
     document.querySelector("#container").innerHTML="";
+    let sum=0;
     out.forEach((elem) => {
         let di= document.createElement("div");
         let im=document.createElement("img");
@@ -195,16 +224,17 @@ function display(out){
         let discount= document.createElement("p");
         discount.innerHTML=elem.discount;
         discount.style.color="brown";
-        let btn=document.createElement("i");
-        btn.className="fas fa-shopping-cart main";
+        let btn=document.createElement("button");
+        btn.innerHTML="Remove";
+        btn.style.backgroundColor="red"
         btn.addEventListener("click", async (event)=>{
             try {
                 event.preventDefault();
                 
                 let token=localStorage.getItem("token"); 
                 console.log(token);
-                let cart_req = await fetch("http://localhost:8080/cart/add",{
-            method:"POST",
+                let cart_req = await fetch("http://localhost:8080/cart/delete",{
+            method:"DELETE",
             headers : {
                 "Content-Type" : "application/json",
                 "authorization":token
@@ -215,6 +245,7 @@ function display(out){
             
             let data=await cart_req.json()
             alert(data.msg);
+            window.location.reload();
         }else{
             alert("bad request")
         }
@@ -224,50 +255,24 @@ function display(out){
         });
         let car=document.createElement("h3");
         car.innerHTML="Cart"
-        car.style.color="hsl(34, 87%, 59%)"
-        di.append(im,br,dis,ra,pri,discount,btn,car);
+        car.style.color="hsl(34, 87%, 59%)";
+        sum+=elem.price;
+        di.append(im,br,dis,ra,pri,discount,btn);
         document.querySelector("#container").append(di);
     });
+    displayprice(sum);
+}
+
+function displayprice(data){
+    document.querySelector("#price-show").innerHTML=`&#8377; ${data}/-`;
+}
+}else{
+     document.querySelector("#not_login").innerHTML="Please log-in frist to see your products";
+     document.querySelector(".main-1").innerHTML="";
 }
 
 
-document.querySelector("#sort").addEventListener("change",sortfun);
-    function sortfun(event){
-        event.preventDefault();
-    let val=document.querySelector("#sort").value;
-    console.log(val)
-    if(val=="Highest Rating"){
-        bag.sort(function(a,b){
-            return b.rating - a.rating
-        });
-}else if(val=="Price HTL"){
-    bag.sort(function(a,b){
-            return b.price - a.price
-        });
-}else if(val=="Price LTH"){
-    bag.sort(function(a,b){
-        return a.price - b.price
-    });
-} else {
-    window.location.reload();
-}
-display(bag);
-}
+    
 
-document.querySelector("#filt").addEventListener("change",filterfun);  
-function filterfun(){
-    let val2=document.querySelector("#filt").value;
-    let filterdata= bag.filter(function(element){
-        return element.brand == val2;
-    });
-    display(filterdata);
-};
 
-function search(){
-    let val3=document.querySelector("#valu").value;
-    let newdata=bag.filter(function(ele){
-        return ele.discription.toLowerCase().includes(val3.toLowerCase());
-    });
-    display(newdata);
-}
 </script>

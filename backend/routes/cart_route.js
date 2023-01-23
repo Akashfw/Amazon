@@ -25,6 +25,17 @@ cartroute.get("/item",async(req,res)=>{
     }
 })
 
+cartroute.delete("/delete",async(req,res)=>{
+    try {
+        const {_id}= req.body;
+         await Cartmodel.findByIdAndDelete({_id});
+        res.send({"msg":"item has been removed"});
+    } catch (err) {
+        res.send("something went wrong");
+        console.log(err);
+    }
+})
+
 module.exports={
     cartroute
 }
